@@ -112,6 +112,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
                   >
                     <source src={introVideoFile} type="video/mp4" />
+                    <source src="./intro.mp4" type="video/mp4" />
                     <source src="./assets/video/intro.mp4" type="video/mp4" />
                     <source src="./assets/video/genera_video_de_intro_para_la (1).mp4" type="video/mp4" />
                   </video>

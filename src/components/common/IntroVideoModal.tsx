@@ -100,6 +100,7 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
             className="w-full h-full object-contain"
           >
             <source src={activeVideoSrc} type="video/mp4" />
+            <source src="./intro.mp4" type="video/mp4" />
             <source src="./assets/video/intro.mp4" type="video/mp4" />
             <source src="./assets/video/genera_video_de_intro_para_la (1).mp4" type="video/mp4" />
             Tu navegador no soporta el formato de video HTML5.
