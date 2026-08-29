@@ -58,7 +58,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <div className="w-8 h-8 rounded-full bg-district-lime text-district-darker flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Play className="w-4 h-4 fill-current ml-0.5" />
                 </div>
-                <span>Ver Video 3D</span>
+                <span>Ver Video 3D (Popup)</span>
               </button>
 
               <button
@@ -88,7 +88,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           </div>
 
-          {/* Graphic / Visual 3D Showcase Card with Video Trigger */}
+          {/* Graphic / Live Video Showcase Card */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
@@ -96,39 +96,45 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="absolute -inset-1 rounded-3xl bg-district-gradient opacity-30 blur-lg animate-pulse-glow" />
 
               {/* Card Container */}
-              <div className="relative rounded-2xl overflow-hidden glass-card p-3 border border-district-cyan/30 shadow-2xl">
+              <div className="relative rounded-2xl overflow-hidden glass-card p-3 border border-district-lime/40 shadow-2xl">
                 
-                {/* Featured Architectural Video Thumbnail */}
+                {/* Live Video Preview Container */}
                 <div 
                   onClick={onOpenVideo}
-                  className="relative h-80 sm:h-96 rounded-xl overflow-hidden group cursor-pointer"
+                  className="relative h-80 sm:h-96 rounded-xl overflow-hidden group cursor-pointer bg-black"
                 >
-                  <img
-                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
-                    alt="District Arquitectura Residencia"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-district-darker via-district-darker/40 to-transparent opacity-80" />
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                  >
+                    <source src="./assets/video/genera_video_de_intro_para_la (1).mp4" type="video/mp4" />
+                    <source src="./assets/video/intro.mp4" type="video/mp4" />
+                  </video>
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-district-darker via-transparent to-transparent opacity-80" />
                   
-                  {/* Badge on image */}
+                  {/* Badge on video */}
                   <div className="absolute top-4 left-4 bg-district-darker/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-district-lime/40 text-[11px] font-bold tracking-wider text-district-lime uppercase flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-district-lime animate-ping" />
-                    Video Intro Disponible
+                    Video Intro Oficial
                   </div>
 
-                  {/* Big Play Button Overlay */}
+                  {/* Play Overlay Button */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-district-gradient p-0.5 shadow-glow-cyan group-hover:scale-110 transition-transform">
+                    <div className="w-16 h-16 rounded-full bg-district-gradient p-0.5 shadow-glow-lime group-hover:scale-110 transition-transform">
                       <div className="w-full h-full rounded-full bg-district-darker flex items-center justify-center text-district-lime">
                         <Play className="w-8 h-8 fill-current ml-1" />
                       </div>
                     </div>
                   </div>
 
-                  {/* Caption on bottom of image */}
+                  {/* Caption */}
                   <div className="absolute bottom-4 left-4 right-4 text-left">
-                    <h3 className="text-lg font-bold text-white font-display">Video de Presentación DISTRICT</h3>
-                    <p className="text-xs text-slate-300">Haz clic para reproducir el video promocional</p>
+                    <h3 className="text-lg font-bold text-white font-display">Video de Presentación 3D</h3>
+                    <p className="text-xs text-slate-300">Haz clic para abrir el reproductor en pantalla completa</p>
                   </div>
                 </div>
 

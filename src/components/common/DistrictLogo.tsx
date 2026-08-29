@@ -2,56 +2,34 @@ import React from 'react';
 
 interface DistrictLogoProps {
   size?: 'sm' | 'md' | 'lg';
-  showText?: boolean;
   className?: string;
 }
 
 export const DistrictLogo: React.FC<DistrictLogoProps> = ({ 
-  size = 'md', 
-  showText = true,
+  size = 'md',
   className = ''
 }) => {
-  const iconSizes = {
-    sm: 'h-10 w-auto',
-    md: 'h-14 w-auto',
-    lg: 'h-20 w-auto',
-  };
-
-  const textSizes = {
-    sm: 'text-lg',
-    md: 'text-2xl',
-    lg: 'text-4xl',
-  };
-
-  const subtextSizes = {
-    sm: 'text-[9px] tracking-[0.25em]',
-    md: 'text-xs tracking-[0.35em]',
-    lg: 'text-sm tracking-[0.45em]',
+  const logoHeights = {
+    sm: 'h-10 sm:h-12 w-auto',
+    md: 'h-14 sm:h-16 w-auto',
+    lg: 'h-20 sm:h-24 w-auto',
   };
 
   return (
-    <div className={`flex items-center gap-3 select-none ${className}`}>
-      {/* High Quality User Logo */}
+    <div className={`inline-flex items-center select-none ${className}`}>
+      {/* Official Uploaded Logo from assets/logo/logodistrict.png */}
       <img
         src="./assets/logo/logodistrict.png"
-        alt="DISTRICT Arquitectura"
-        className={`${iconSizes[size]} object-contain filter drop-shadow-[0_0_15px_rgba(0,200,255,0.4)] transition-transform duration-300 hover:scale-105`}
+        alt="DISTRICT Arquitectura Logo"
+        className={`${logoHeights[size]} object-contain filter drop-shadow-[0_0_20px_rgba(0,200,255,0.4)] transition-transform duration-300 hover:scale-105`}
         onError={(e) => {
-          // Fallback if path relative changes
-          (e.target as HTMLImageElement).src = './logo-district-original.png';
+          // Fallback to root assets if relative subfolder path varies
+          const target = e.target as HTMLImageElement;
+          if (target.src !== './logo-district-original.png') {
+            target.src = './logo-district-original.png';
+          }
         }}
       />
-
-      {showText && (
-        <div className="flex flex-col">
-          <span className={`font-extrabold leading-none tracking-wider text-white ${textSizes[size]} font-display`}>
-            DISTRICT
-          </span>
-          <span className={`font-semibold text-district-lime leading-tight ${subtextSizes[size]} uppercase`}>
-            ARQUITECTURA
-          </span>
-        </div>
-      )}
     </div>
   );
 };
