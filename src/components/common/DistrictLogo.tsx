@@ -1,5 +1,4 @@
 import React from 'react';
-import logoImg from '../../assets/logo/logodistrict.png';
 
 interface DistrictLogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -11,9 +10,9 @@ export const DistrictLogo: React.FC<DistrictLogoProps> = ({
   className = ''
 }) => {
   const logoHeights = {
-    sm: 'h-9 sm:h-11 w-auto',
-    md: 'h-12 sm:h-14 w-auto',
-    lg: 'h-18 sm:h-22 w-auto',
+    sm: 'h-10 sm:h-12 w-auto',
+    md: 'h-14 sm:h-16 w-auto',
+    lg: 'h-20 sm:h-24 w-auto',
   };
 
   return (
@@ -21,11 +20,11 @@ export const DistrictLogo: React.FC<DistrictLogoProps> = ({
       <img
         src="./logodistrict.png"
         alt="DISTRICT Arquitectura"
-        className={`${logoHeights[size]} object-contain filter drop-shadow-[0_0_15px_rgba(0,200,255,0.4)] transition-transform duration-300 hover:scale-105`}
+        className={`${logoHeights[size]} object-contain filter drop-shadow-[0_0_20px_rgba(0,200,255,0.35)] transition-transform duration-300 hover:scale-105`}
         onError={(e) => {
           const target = e.target as HTMLImageElement;
-          if (target.src !== logoImg && logoImg) {
-            target.src = logoImg;
+          if (!target.src.endsWith('assets/logo/logodistrict.png')) {
+            target.src = './assets/logo/logodistrict.png';
           }
         }}
       />
