@@ -38,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenCalculator 
           
           {/* Logo */}
           <a href="#hero" className="flex items-center">
-            <DistrictLogo size="md" useImage={true} />
+            <DistrictLogo size="md" />
           </a>
 
           {/* Desktop Navigation */}

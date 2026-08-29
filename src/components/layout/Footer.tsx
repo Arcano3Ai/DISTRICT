@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
           
           {/* Brand & Slogan Column (5 Cols) */}
           <div className="lg:col-span-5 space-y-6">
-            <DistrictLogo size="lg" useImage={true} />
+            <DistrictLogo size="lg" />
 
             <p className="text-slate-300 text-sm font-light leading-relaxed max-w-sm">
               Nos dedicamos al diseño arquitectónico, y buscamos adaptar tu idea, para brindarte la mejor opción.

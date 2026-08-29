@@ -1,12 +1,17 @@
 import React from 'react';
-import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Calendar } from 'lucide-react';
+import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Calendar, Play } from 'lucide-react';
 
 interface HeroSectionProps {
   onOpenCalculator: () => void;
   onOpenBooking: () => void;
+  onOpenVideo: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOpenBooking }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ 
+  onOpenCalculator, 
+  onOpenBooking,
+  onOpenVideo
+}) => {
   return (
     <section id="hero" className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
       
@@ -47,11 +52,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
               </button>
 
               <button
-                onClick={onOpenBooking}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-4 text-sm font-semibold uppercase tracking-wider text-white glass-card hover:bg-district-card/80 border border-slate-700 hover:border-district-lime rounded-xl transition-all duration-300"
+                onClick={onOpenVideo}
+                className="w-full sm:w-auto flex items-center justify-center gap-3 px-7 py-4 text-sm font-bold uppercase tracking-wider text-white glass-card hover:bg-district-card/90 border border-district-lime/60 rounded-xl transition-all duration-300 shadow-glow-lime group"
               >
-                <Calendar className="w-5 h-5 text-district-lime" />
-                Agendar Cita con Arq. Jaime
+                <div className="w-8 h-8 rounded-full bg-district-lime text-district-darker flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Play className="w-4 h-4 fill-current ml-0.5" />
+                </div>
+                <span>Ver Video 3D</span>
+              </button>
+
+              <button
+                onClick={onOpenBooking}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold uppercase tracking-wider text-slate-300 hover:text-district-cyan glass-card border border-slate-800 hover:border-district-cyan rounded-xl transition-all"
+              >
+                <Calendar className="w-4 h-4 text-district-cyan" />
+                Agendar Cita
               </button>
             </div>
 
@@ -73,7 +88,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
 
           </div>
 
-          {/* Graphic / Visual 3D Showcase Card */}
+          {/* Graphic / Visual 3D Showcase Card with Video Trigger */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
@@ -83,25 +98,37 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
               {/* Card Container */}
               <div className="relative rounded-2xl overflow-hidden glass-card p-3 border border-district-cyan/30 shadow-2xl">
                 
-                {/* Featured Architectural Render Image */}
-                <div className="relative h-80 sm:h-96 rounded-xl overflow-hidden group">
+                {/* Featured Architectural Video Thumbnail */}
+                <div 
+                  onClick={onOpenVideo}
+                  className="relative h-80 sm:h-96 rounded-xl overflow-hidden group cursor-pointer"
+                >
                   <img
                     src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
                     alt="District Arquitectura Residencia"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-district-darker via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-district-darker via-district-darker/40 to-transparent opacity-80" />
                   
                   {/* Badge on image */}
                   <div className="absolute top-4 left-4 bg-district-darker/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-district-lime/40 text-[11px] font-bold tracking-wider text-district-lime uppercase flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-district-lime animate-ping" />
-                    Proyecto Destacado 2024
+                    Video Intro Disponible
+                  </div>
+
+                  {/* Big Play Button Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-district-gradient p-0.5 shadow-glow-cyan group-hover:scale-110 transition-transform">
+                      <div className="w-full h-full rounded-full bg-district-darker flex items-center justify-center text-district-lime">
+                        <Play className="w-8 h-8 fill-current ml-1" />
+                      </div>
+                    </div>
                   </div>
 
                   {/* Caption on bottom of image */}
                   <div className="absolute bottom-4 left-4 right-4 text-left">
-                    <h3 className="text-lg font-bold text-white font-display">Residencia La Montaña</h3>
-                    <p className="text-xs text-slate-300">San Pedro Garza García • 380 m² de Construcción</p>
+                    <h3 className="text-lg font-bold text-white font-display">Video de Presentación DISTRICT</h3>
+                    <p className="text-xs text-slate-300">Haz clic para reproducir el video promocional</p>
                   </div>
                 </div>
 

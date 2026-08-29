@@ -5,13 +5,15 @@ import { PortfolioGallery } from './components/portfolio/PortfolioGallery';
 import { ServicesGrid } from './components/services/ServicesGrid';
 import { IdeaCalculator } from './components/calculator/IdeaCalculator';
 import { BookingModal } from './components/booking/BookingModal';
+import { VideoModal } from './components/common/VideoModal';
 import { Footer } from './components/layout/Footer';
 
 export function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'DISTRICT Arquitectura | Arq. Jaime Facundo | Renders 3D & Proyectos';
+    document.title = 'DISTRICT Arquitectura | Arq. Jaime Facundo | Diseños & Video Presentación';
   }, []);
 
   const scrollToCalculator = () => {
@@ -35,6 +37,7 @@ export function App() {
         <HeroSection
           onOpenCalculator={scrollToCalculator}
           onOpenBooking={() => setIsBookingOpen(true)}
+          onOpenVideo={() => setIsVideoOpen(true)}
         />
 
         {/* Portfolio Gallery */}
@@ -61,6 +64,14 @@ export function App() {
       <BookingModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
+      />
+
+      {/* Intro Video Popup Modal */}
+      <VideoModal
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoSrc="./assets/video/intro.mp4"
+        title="Video Introductorio • DISTRICT Arquitectura"
       />
 
     </div>
