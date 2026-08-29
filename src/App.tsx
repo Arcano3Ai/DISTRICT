@@ -5,15 +5,22 @@ import { PortfolioGallery } from './components/portfolio/PortfolioGallery';
 import { ServicesGrid } from './components/services/ServicesGrid';
 import { IdeaCalculator } from './components/calculator/IdeaCalculator';
 import { BookingModal } from './components/booking/BookingModal';
-import { VideoModal } from './components/common/VideoModal';
+import { IntroVideoModal } from './components/common/IntroVideoModal';
 import { Footer } from './components/layout/Footer';
 
 export function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isIntroVideoOpen, setIsIntroVideoOpen] = useState(false);
 
   useEffect(() => {
     document.title = 'DISTRICT Arquitectura | Arq. Jaime Facundo | Diseños & Video Presentación';
+    
+    // Auto open intro video on initial load
+    const hasSeenIntro = sessionStorage.getItem('district_intro_seen');
+    if (!hasSeenIntro) {
+      setIsIntroVideoOpen(true);
+      sessionStorage.setItem('district_intro_seen', 'true');
+    }
   }, []);
 
   const scrollToCalculator = () => {
@@ -37,7 +44,7 @@ export function App() {
         <HeroSection
           onOpenCalculator={scrollToCalculator}
           onOpenBooking={() => setIsBookingOpen(true)}
-          onOpenVideo={() => setIsVideoOpen(true)}
+          onOpenVideo={() => setIsIntroVideoOpen(true)}
         />
 
         {/* Portfolio Gallery */}
@@ -66,12 +73,11 @@ export function App() {
         onClose={() => setIsBookingOpen(false)}
       />
 
-      {/* Intro Video Popup Modal */}
-      <VideoModal
-        isOpen={isVideoOpen}
-        onClose={() => setIsVideoOpen(false)}
-        videoSrc="./assets/video/intro.mp4"
-        title="Video Introductorio • DISTRICT Arquitectura"
+      {/* Intro Video Popup Modal (genera_video_de_intro_para_la (1).mp4) */}
+      <IntroVideoModal
+        isOpen={isIntroVideoOpen}
+        onClose={() => setIsIntroVideoOpen(false)}
+        videoSrc="./assets/video/genera_video_de_intro_para_la (1).mp4"
       />
 
     </div>
