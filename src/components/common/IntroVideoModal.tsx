@@ -15,21 +15,19 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   const primaryVideoSrc = videoSrc || "./intro.mp4";
 
   useEffect(() => {
     if (isOpen && videoRef.current) {
       videoRef.current.currentTime = 0;
+      videoRef.current.muted = true;
+      setIsMuted(true);
       const playPromise = videoRef.current.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          if (videoRef.current) {
-            videoRef.current.muted = true;
-            setIsMuted(true);
-            videoRef.current.play().catch(() => {});
-          }
+        playPromise.catch((err) => {
+          console.log("Autoplay error handling:", err);
         });
       }
       setIsPlaying(true);
@@ -80,18 +78,19 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
 
           <button
             onClick={onClose}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-district-card text-xs font-bold text-slate-300 hover:text-white border border-slate-700 hover:border-district-lime transition-all cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-district-card text-xs font-bold text-slate-300 hover:text-white border border-slate-700 hover:border-district-lime transition-all cursor-pointer"
           >
-            <span>Saltar Intro</span>
+            <span>Saltar Intro [X]</span>
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Video Player Area */}
-        <div className="relative flex-1 bg-black flex items-center justify-center group overflow-hidden min-h-[300px]">
+        <div className="relative flex-1 bg-black flex items-center justify-center group overflow-hidden min-h-[320px]">
           <video
             ref={videoRef}
             autoPlay
+            muted
             playsInline
             controls
             onPlay={() => setIsPlaying(true)}
@@ -106,6 +105,17 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
             Tu navegador no soporta el formato de video HTML5.
           </video>
 
+          {/* Sound Unmute Alert Button */}
+          {isMuted && (
+            <button
+              onClick={toggleMute}
+              className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-district-darker/90 text-district-lime border border-district-lime/60 shadow-glow-lime text-xs font-bold animate-pulse cursor-pointer"
+            >
+              <VolumeX className="w-4 h-4" />
+              <span>Haz clic para activar audio 🔊</span>
+            </button>
+          )}
+
           {/* Quick Controls Overlay */}
           <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-2xl bg-district-darker/85 backdrop-blur-md border border-slate-700/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex items-center gap-3">
@@ -119,10 +129,20 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
 
               <button
                 onClick={toggleMute}
-                className="p-2.5 rounded-xl bg-slate-800 text-slate-200 hover:text-white transition-colors"
+                className="p-2.5 rounded-xl bg-slate-800 text-slate-200 hover:text-white transition-colors flex items-center gap-2 px-3"
                 title={isMuted ? "Activar Sonido" : "Silenciar"}
               >
-                {isMuted ? <VolumeX className="w-5 h-5 text-district-lime" /> : <Volume2 className="w-5 h-5" />}
+                {isMuted ? (
+                  <>
+                    <VolumeX className="w-5 h-5 text-district-lime" />
+                    <span className="text-xs font-semibold">Sin audio</span>
+                  </>
+                ) : (
+                  <>
+                    <Volume2 className="w-5 h-5 text-district-cyan" />
+                    <span className="text-xs font-semibold">Audio activo</span>
+                  </>
+                )}
               </button>
             </div>
 

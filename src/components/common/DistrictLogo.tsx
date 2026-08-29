@@ -10,18 +10,18 @@ export const DistrictLogo: React.FC<DistrictLogoProps> = ({
   size = 'md',
   className = ''
 }) => {
-  const imageSizes = {
-    sm: 'h-8 sm:h-10 w-auto',
-    md: 'h-11 sm:h-14 w-auto',
-    lg: 'h-16 sm:h-20 w-auto',
+  const logoHeights = {
+    sm: 'h-9 sm:h-11 w-auto',
+    md: 'h-12 sm:h-14 w-auto',
+    lg: 'h-18 sm:h-22 w-auto',
   };
 
   return (
-    <div className={`inline-flex items-center justify-center select-none bg-white rounded-2xl shadow-glow-cyan border border-district-lime/50 p-1.5 transition-all duration-300 hover:scale-105 ${className}`}>
+    <div className={`inline-flex items-center justify-center select-none ${className}`}>
       <img
         src="./logodistrict.png"
-        alt=""
-        className={`${imageSizes[size]} object-contain rounded-xl`}
+        alt="DISTRICT Arquitectura"
+        className={`${logoHeights[size]} object-contain filter drop-shadow-[0_0_15px_rgba(0,200,255,0.4)] transition-transform duration-300 hover:scale-105`}
         onError={(e) => {
           const target = e.target as HTMLImageElement;
           if (target.src !== logoImg && logoImg) {
