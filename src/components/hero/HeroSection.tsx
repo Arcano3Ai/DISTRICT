@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Calendar, Play } from 'lucide-react';
-import introVideoFile from '../../assets/video/intro.mp4';
+import introVideoImport from '../../assets/video/intro.mp4';
 
 interface HeroSectionProps {
   onOpenCalculator: () => void;
@@ -13,6 +13,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenBooking,
   onOpenVideo
 }) => {
+  const dynamicVideoUrl = new URL('/assets/video/intro.mp4', import.meta.url).href;
+  const activeVideoSrc = introVideoImport || dynamicVideoUrl;
+
   return (
     <section id="hero" className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
       
@@ -111,10 +114,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     playsInline
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
                   >
-                    <source src={introVideoFile} type="video/mp4" />
-                    <source src="./intro.mp4" type="video/mp4" />
+                    <source src={activeVideoSrc} type="video/mp4" />
+                    <source src={dynamicVideoUrl} type="video/mp4" />
                     <source src="./assets/video/intro.mp4" type="video/mp4" />
-                    <source src="./assets/video/genera_video_de_intro_para_la (1).mp4" type="video/mp4" />
                   </video>
 
                   <div className="absolute inset-0 bg-gradient-to-t from-district-darker via-transparent to-transparent opacity-80" />

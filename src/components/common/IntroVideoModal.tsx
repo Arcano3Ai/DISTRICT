@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { X, Play, Pause, Volume2, VolumeX, ArrowRight, Sparkles } from 'lucide-react';
-import introVideoFile from '../../assets/video/intro.mp4';
+import introVideoImport from '../../assets/video/intro.mp4';
 
 interface IntroVideoModalProps {
   isOpen: boolean;
@@ -17,7 +17,8 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
 
-  const activeVideoSrc = videoSrc || introVideoFile;
+  const dynamicVideoUrl = new URL('/assets/video/intro.mp4', import.meta.url).href;
+  const activeVideoSrc = videoSrc || introVideoImport || dynamicVideoUrl;
 
   useEffect(() => {
     if (isOpen && videoRef.current) {
@@ -100,9 +101,9 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
             className="w-full h-full object-contain"
           >
             <source src={activeVideoSrc} type="video/mp4" />
-            <source src="./intro.mp4" type="video/mp4" />
+            <source src={dynamicVideoUrl} type="video/mp4" />
             <source src="./assets/video/intro.mp4" type="video/mp4" />
-            <source src="./assets/video/genera_video_de_intro_para_la (1).mp4" type="video/mp4" />
+            <source src="./intro.mp4" type="video/mp4" />
             Tu navegador no soporta el formato de video HTML5.
           </video>
 
