@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { X, Play, Pause, Volume2, VolumeX, ArrowRight, Sparkles } from 'lucide-react';
+import introVideoFile from '../../assets/video/intro.mp4';
 
 interface IntroVideoModalProps {
   isOpen: boolean;
@@ -10,11 +11,13 @@ interface IntroVideoModalProps {
 export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
   isOpen,
   onClose,
-  videoSrc = './assets/video/genera_video_de_intro_para_la (1).mp4'
+  videoSrc
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
+
+  const activeVideoSrc = videoSrc || introVideoFile;
 
   useEffect(() => {
     if (isOpen && videoRef.current) {
@@ -77,7 +80,7 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
 
           <button
             onClick={onClose}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-district-card text-xs font-bold text-slate-300 hover:text-white border border-slate-700 hover:border-district-lime transition-all"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-district-card text-xs font-bold text-slate-300 hover:text-white border border-slate-700 hover:border-district-lime transition-all cursor-pointer"
           >
             <span>Saltar Intro</span>
             <X className="w-4 h-4" />
@@ -90,13 +93,15 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
             ref={videoRef}
             autoPlay
             playsInline
+            controls
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
             onEnded={onClose}
             className="w-full h-full object-contain"
           >
-            <source src={videoSrc} type="video/mp4" />
+            <source src={activeVideoSrc} type="video/mp4" />
             <source src="./assets/video/intro.mp4" type="video/mp4" />
+            <source src="./assets/video/genera_video_de_intro_para_la (1).mp4" type="video/mp4" />
             Tu navegador no soporta el formato de video HTML5.
           </video>
 
@@ -122,7 +127,7 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
 
             <button
               onClick={onClose}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider text-district-darker bg-district-gradient shadow-glow-cyan hover:opacity-95 transition-all"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider text-district-darker bg-district-gradient shadow-glow-cyan hover:opacity-95 transition-all cursor-pointer"
             >
               <span>Entrar al Sitio Web</span>
               <ArrowRight className="w-4 h-4" />
@@ -135,7 +140,7 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
           <span>DISTRICT Arquitectura • Arq. Jaime Facundo (Tel. 419-707-9143)</span>
           <button
             onClick={onClose}
-            className="text-xs font-bold text-district-cyan hover:text-district-lime transition-colors"
+            className="text-xs font-bold text-district-cyan hover:text-district-lime transition-colors cursor-pointer"
           >
             Cerrar Video [x]
           </button>

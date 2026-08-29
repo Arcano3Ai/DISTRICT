@@ -1,4 +1,6 @@
 import React from 'react';
+import logoDistrictImg from '../../assets/logo/logodistrict.png';
+import fallbackLogoImg from '../../assets/logo-district-original.png';
 
 interface DistrictLogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -27,13 +29,13 @@ export const DistrictLogo: React.FC<DistrictLogoProps> = ({
     return (
       <div className={`inline-flex items-center justify-center select-none bg-white rounded-2xl shadow-glow-cyan border border-district-lime/50 p-1.5 transition-all duration-300 hover:scale-105 hover:shadow-glow-lime ${className}`}>
         <img
-          src="./assets/logo/logodistrict.png"
+          src={logoDistrictImg}
           alt="DISTRICT Arquitectura - Arq. Jaime Facundo"
           className={`${imageSizes[size]} object-contain rounded-xl`}
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            if (target.src !== './logo-district-original.png') {
-              target.src = './logo-district-original.png';
+            if (target.src !== fallbackLogoImg) {
+              target.src = fallbackLogoImg;
             }
           }}
         />
@@ -44,13 +46,13 @@ export const DistrictLogo: React.FC<DistrictLogoProps> = ({
   return (
     <div className={`inline-flex items-center justify-center select-none ${containerSizes[size]} ${className}`}>
       <img
-        src="./assets/logo/logodistrict.png"
+        src={logoDistrictImg}
         alt="DISTRICT Arquitectura"
         className={`${imageSizes[size]} object-contain filter drop-shadow-[0_0_15px_rgba(0,200,255,0.5)] transition-transform duration-300 hover:scale-105`}
         onError={(e) => {
           const target = e.target as HTMLImageElement;
-          if (target.src !== './logo-district-original.png') {
-            target.src = './logo-district-original.png';
+          if (target.src !== fallbackLogoImg) {
+            target.src = fallbackLogoImg;
           }
         }}
       />
