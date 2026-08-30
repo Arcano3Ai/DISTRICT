@@ -91,9 +91,9 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     location: 'Carretera Nacional, N.L.',
     m2: 500,
     year: '2024',
-    mainImage: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1200&q=80',
+    mainImage: './media/obra_terreno_construccion.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1200&q=80',
+      './media/obra_terreno_construccion.jpg',
       'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80'
     ],
     features: ['Muro de contención de piedra', 'Cimentación aislada reforzada', 'Estudio de mecánica de suelos', 'Dirección técnica de obra'],

@@ -9,9 +9,9 @@ interface ProjectModalProps {
 }
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, onOpenBooking }) => {
-  if (!project) return null;
-
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  if (!project) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-district-darker/90 backdrop-blur-xl animate-in fade-in duration-300">

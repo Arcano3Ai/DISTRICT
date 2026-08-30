@@ -45,10 +45,10 @@
 }
 
 .glass-nav {
-  background: rgba(6, 9, 19, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 210, 255, 0.12);
+  background: rgba(6, 9, 19, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(0, 210, 255, 0.2);
 }
 
 .glass-card-hover {

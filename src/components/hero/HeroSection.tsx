@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Calendar, Play } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Calendar, Play, User, Video } from 'lucide-react';
 import introVideoAsset from '../../assets/video/intro.mp4';
 
 interface HeroSectionProps {
@@ -13,6 +13,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenBooking,
   onOpenVideo
 }) => {
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [activeTab, setActiveTab] = useState<'architect' | 'video'>('architect');
+
+  useEffect(() => {
+    if (heroVideoRef.current && activeTab === 'video') {
+      heroVideoRef.current.muted = true;
+      const playPromise = heroVideoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay handled by browser policy
+        });
+      }
+    }
+  }, [activeTab]);
+
   return (
     <section id="hero" className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
       
@@ -89,7 +104,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           </div>
 
-          {/* Graphic / Live Video Showcase Card */}
+          {/* Graphic / Live Architect Showcase Card */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
@@ -99,58 +114,117 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Card Container */}
               <div className="relative rounded-2xl overflow-hidden glass-card p-3 border border-district-lime/40 shadow-2xl">
                 
-                {/* Live Video Preview Container */}
-                <div 
-                  onClick={onOpenVideo}
-                  className="relative h-80 sm:h-96 rounded-xl overflow-hidden group cursor-pointer bg-black"
-                >
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                {/* Tab Selector Header */}
+                <div className="flex items-center justify-between gap-2 p-1.5 mb-3 bg-district-darker/80 rounded-xl border border-slate-800">
+                  <button
+                    onClick={() => setActiveTab('architect')}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+                      activeTab === 'architect'
+                        ? 'bg-district-gradient text-district-darker shadow-glow-cyan'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    }`}
                   >
-                    <source src="./intro.mp4" type="video/mp4" />
-                    <source src="./assets/video/intro.mp4" type="video/mp4" />
-                    <source src={introVideoAsset} type="video/mp4" />
-                  </video>
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-district-darker via-transparent to-transparent opacity-80" />
+                    <User className="w-4 h-4" />
+                    <span>Arq. Jaime Facundo</span>
+                  </button>
                   
-                  {/* Badge on video */}
-                  <div className="absolute top-4 left-4 bg-district-darker/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-district-lime/40 text-[11px] font-bold tracking-wider text-district-lime uppercase flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-district-lime animate-ping" />
-                    Video Intro Oficial
-                  </div>
+                  <button
+                    onClick={() => setActiveTab('video')}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+                      activeTab === 'video'
+                        ? 'bg-district-gradient text-district-darker shadow-glow-lime'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    }`}
+                  >
+                    <Video className="w-4 h-4" />
+                    <span>Video Intro 3D</span>
+                  </button>
+                </div>
 
-                  {/* Play Overlay Button */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-district-gradient p-0.5 shadow-glow-lime group-hover:scale-110 transition-transform">
-                      <div className="w-full h-full rounded-full bg-district-darker flex items-center justify-center text-district-lime">
-                        <Play className="w-8 h-8 fill-current ml-1" />
+                {/* Tab Content 1: Architect Portrait */}
+                {activeTab === 'architect' ? (
+                  <div className="relative h-96 sm:h-[420px] rounded-xl overflow-hidden group bg-slate-950 border border-slate-800 flex items-center justify-center p-2">
+                    <img
+                      src="./architect.jpg"
+                      alt="Arq. Jaime Facundo - District Arquitectura"
+                      className="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-700 rounded-lg"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = './architect.png';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-district-darker via-transparent to-transparent opacity-80 pointer-events-none" />
+                    
+                    {/* Badge */}
+                    <div className="absolute top-4 left-4 bg-district-darker/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-district-cyan/40 text-[11px] font-bold tracking-wider text-district-cyan uppercase flex items-center gap-1.5 shadow-lg z-10">
+                      <span className="w-2 h-2 rounded-full bg-district-cyan animate-pulse" />
+                      Arquitecto Líder & Director
+                    </div>
+
+                    {/* Caption & Bio overlay */}
+                    <div className="absolute bottom-3 left-3 right-3 text-left space-y-1 z-10 bg-district-darker/80 backdrop-blur-md p-3 rounded-xl border border-slate-800/80">
+                      <div className="inline-block px-2.5 py-0.5 rounded bg-district-lime/20 text-district-lime text-[10px] font-bold tracking-wider uppercase border border-district-lime/30">
+                        Camisa Oficial District
                       </div>
+                      <h3 className="text-lg font-black text-white font-display">Arq. Jaime Facundo</h3>
+                      <p className="text-xs text-slate-300 font-medium">Especialista en diseño residencial, comercial y dirección ejecutiva de obra.</p>
                     </div>
                   </div>
+                ) : (
+                  /* Tab Content 2: Video Player */
+                  <div 
+                    onClick={onOpenVideo}
+                    className="relative h-96 sm:h-[420px] rounded-xl overflow-hidden group cursor-pointer bg-black border border-slate-800"
+                  >
+                    <video
+                      ref={heroVideoRef}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="auto"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                    >
+                      <source src={introVideoAsset} type="video/mp4" />
+                      <source src="./intro.mp4" type="video/mp4" />
+                      <source src="./assets/video/intro.mp4" type="video/mp4" />
+                    </video>
 
-                  {/* Caption */}
-                  <div className="absolute bottom-4 left-4 right-4 text-left">
-                    <h3 className="text-lg font-bold text-white font-display">Video de Presentación 3D</h3>
-                    <p className="text-xs text-slate-300">Haz clic para abrir el reproductor en pantalla completa</p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-district-darker via-transparent to-transparent opacity-80" />
+                    
+                    {/* Badge on video */}
+                    <div className="absolute top-4 left-4 bg-district-darker/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-district-lime/40 text-[11px] font-bold tracking-wider text-district-lime uppercase flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-district-lime animate-ping" />
+                      Video Intro Oficial
+                    </div>
+
+                    {/* Play Overlay Button */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-district-gradient p-0.5 shadow-glow-lime group-hover:scale-110 transition-transform">
+                        <div className="w-full h-full rounded-full bg-district-darker flex items-center justify-center text-district-lime">
+                          <Play className="w-8 h-8 fill-current ml-1" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Caption */}
+                    <div className="absolute bottom-4 left-4 right-4 text-left">
+                      <h3 className="text-lg font-bold text-white font-display">Video de Presentación 3D</h3>
+                      <p className="text-xs text-slate-300">Haz clic para abrir el reproductor en pantalla completa</p>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Quick Interactive Stat Strip */}
                 <div className="grid grid-cols-3 gap-2 mt-3 pt-2 text-center">
-                  <div className="p-2 rounded-lg bg-district-darker/60">
+                  <div className="p-2 rounded-lg bg-district-darker/60 border border-slate-800/60">
                     <span className="block text-lg font-extrabold text-gradient">150+</span>
                     <span className="text-[10px] text-slate-400 font-medium uppercase">Proyectos</span>
                   </div>
-                  <div className="p-2 rounded-lg bg-district-darker/60">
+                  <div className="p-2 rounded-lg bg-district-darker/60 border border-slate-800/60">
                     <span className="block text-lg font-extrabold text-district-lime">100%</span>
                     <span className="text-[10px] text-slate-400 font-medium uppercase">Fotorrealismo</span>
                   </div>
-                  <div className="p-2 rounded-lg bg-district-darker/60">
+                  <div className="p-2 rounded-lg bg-district-darker/60 border border-slate-800/60">
                     <span className="block text-lg font-extrabold text-district-cyan">10+</span>
                     <span className="text-[10px] text-slate-400 font-medium uppercase">Años Exp.</span>
                   </div>

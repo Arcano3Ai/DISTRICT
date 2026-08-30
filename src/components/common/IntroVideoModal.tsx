@@ -17,7 +17,7 @@ export const IntroVideoModal: React.FC<IntroVideoModalProps> = ({
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
 
-  const primaryVideoSrc = videoSrc || "./intro.mp4";
+  const primaryVideoSrc = videoSrc || introVideoAsset;
 
   useEffect(() => {
     if (isOpen && videoRef.current) {

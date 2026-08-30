@@ -9,8 +9,6 @@ interface BookingModalProps {
 }
 
 export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState<BookingForm>({
     name: '',
@@ -21,6 +19,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) =
     preferredTime: '10:00 AM',
     notes: '',
   });
+
+  if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -10,15 +10,16 @@ import { Footer } from './components/layout/Footer';
 
 export function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [isIntroVideoOpen, setIsIntroVideoOpen] = useState(false);
+  const [isIntroVideoOpen, setIsIntroVideoOpen] = useState(() => {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      return !sessionStorage.getItem('district_intro_seen');
+    }
+    return false;
+  });
 
   useEffect(() => {
     document.title = 'DISTRICT Arquitectura | Arq. Jaime Facundo | Diseños & Video Presentación';
-    
-    // Auto open intro video on initial load
-    const hasSeenIntro = sessionStorage.getItem('district_intro_seen');
-    if (!hasSeenIntro) {
-      setIsIntroVideoOpen(true);
+    if (typeof window !== 'undefined' && window.sessionStorage) {
       sessionStorage.setItem('district_intro_seen', 'true');
     }
   }, []);
@@ -73,11 +74,10 @@ export function App() {
         onClose={() => setIsBookingOpen(false)}
       />
 
-      {/* Intro Video Popup Modal (genera_video_de_intro_para_la (1).mp4) */}
+      {/* Intro Video Popup Modal */}
       <IntroVideoModal
         isOpen={isIntroVideoOpen}
         onClose={() => setIsIntroVideoOpen(false)}
-        videoSrc="./assets/video/genera_video_de_intro_para_la (1).mp4"
       />
 
     </div>
